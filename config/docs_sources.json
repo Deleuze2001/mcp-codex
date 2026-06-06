@@ -1,0 +1,46 @@
+[
+  {
+    "name": "fastapi",
+    "label": "FastAPI",
+    "base_url": "https://fastapi.tiangolo.com/",
+    "sitemap_url": "https://fastapi.tiangolo.com/sitemap.xml",
+    "search_url": "https://fastapi.tiangolo.com/search/?q={query}"
+  },
+  {
+    "name": "python",
+    "label": "Python",
+    "base_url": "https://docs.python.org/3/",
+    "search_url": "https://docs.python.org/3/search.html?q={query}"
+  },
+  {
+    "name": "github_actions",
+    "label": "GitHub Actions",
+    "base_url": "https://docs.github.com/en/actions",
+    "search_url": "https://docs.github.com/en/search?query={query}"
+  },
+  {
+    "name": "terraform",
+    "label": "Terraform",
+    "base_url": "https://developer.hashicorp.com/terraform/docs",
+    "search_url": "https://developer.hashicorp.com/search?query={query}"
+  },
+  {
+    "name": "ansible",
+    "label": "Ansible",
+    "base_url": "https://docs.ansible.com/ansible/latest/",
+    "sitemap_url": "https://docs.ansible.com/sitemap.xml",
+    "search_url": "https://docs.ansible.com/ansible/latest/search.html?q={query}"
+  },
+  {
+    "name": "aws",
+    "label": "AWS",
+    "base_url": "https://docs.aws.amazon.com/",
+    "search_url": "https://docs.aws.amazon.com/search/doc-search.html?searchQuery={query}"
+  },
+  {
+    "name": "browser",
+    "label": "Browser APIs",
+    "base_url": "https://developer.mozilla.org/en-US/docs/Web/API",
+    "search_url": "https://developer.mozilla.org/en-US/search?q={query}"
+  }
+]

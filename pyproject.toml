@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcp-codex-workspace"
+version = "0.1.0"
+description = "Local-first MCP servers for Codex development and operations workflows."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "mcp[cli]>=1.27,<2",
+]
+
+[project.optional-dependencies]
+browser = [
+  "playwright>=1.52",
+]
+dev = [
+  "pytest>=8",
+  "ruff>=0.11",
+]
+
+[project.scripts]
+mcp-codex-docs = "mcp_codex.docs_server:main"
+mcp-codex-github = "mcp_codex.github_server:main"
+mcp-codex-local-dev = "mcp_codex.local_dev_server:main"
+mcp-codex-memory = "mcp_codex.memory_server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+

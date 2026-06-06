@@ -1,0 +1,28 @@
+{
+  "tests": {
+    "command": ["python", "-m", "pytest"],
+    "description": "Run the project's Python test suite.",
+    "timeout_seconds": 120,
+    "allow_extra_args": true
+  },
+  "linter": {
+    "command": ["python", "-m", "ruff", "check", "."],
+    "description": "Run Ruff lint checks.",
+    "timeout_seconds": 120,
+    "allow_extra_args": false
+  },
+  "typecheck": {
+    "command": ["python", "-m", "mypy", "src"],
+    "description": "Run mypy type checks.",
+    "timeout_seconds": 120,
+    "allow_extra_args": false
+  },
+  "start_app": {
+    "command": ["python", "-m", "uvicorn", "app.main:app", "--reload"],
+    "description": "Start a conventional FastAPI app in development mode.",
+    "timeout_seconds": 5,
+    "allow_extra_args": true,
+    "long_running": true
+  }
+}
+

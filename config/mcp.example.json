@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "github": {
+      "command": "mcp-codex-github"
+    },
+    "docs": {
+      "command": "mcp-codex-docs"
+    },
+    "local-dev": {
+      "command": "mcp-codex-local-dev"
+    },
+    "memory": {
+      "command": "mcp-codex-memory"
+    },
+    "browser": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"]
+    }
+  }
+}
+
