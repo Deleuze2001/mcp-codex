@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+server="${1:-}"
+shift || true
+
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+venv_python="$repo_root/.venv/bin/python"
+
+case "$server" in
+  github|docs|local-dev|memory) ;;
+  *)
+    echo "Usage: $0 {github|docs|local-dev|memory} [server args...]" >&2
+    exit 2
+    ;;
+esac
+
+if [[ ! -x "$venv_python" ]]; then
+  echo "Missing virtualenv at $repo_root/.venv. Run scripts/setup-silverblue-toolbox first." >&2
+  exit 1
+fi
+
+cd "$repo_root"
+export MCP_CODEX_LOG_DIR="${MCP_CODEX_LOG_DIR:-$repo_root/.mcp-codex/logs}"
+export MCP_CODEX_LOCAL_DEV_CONFIG="${MCP_CODEX_LOCAL_DEV_CONFIG:-$repo_root/config/local_dev.allowlist.json}"
+export MCP_CODEX_DOC_SOURCES="${MCP_CODEX_DOC_SOURCES:-$repo_root/config/docs_sources.json}"
+export MCP_CODEX_MEMORY_ROOT="${MCP_CODEX_MEMORY_ROOT:-$repo_root/memory}"
+
+exec "$repo_root/.venv/bin/mcp-codex-$server" "$@"
+

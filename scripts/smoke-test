@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$repo_root"
+
+if [[ ! -x .venv/bin/python ]]; then
+  echo "Missing .venv. Run scripts/setup-silverblue-toolbox inside the toolbox first." >&2
+  exit 1
+fi
+
+. .venv/bin/activate
+
+python -m pip --version
+python -m pytest
+python -m ruff check .
+
+python - <<'PY'
+import tempfile
+from pathlib import Path
+
+from mcp_codex.services import docs, local_dev, memory
+
+sources = docs.list_doc_sources()["sources"]
+assert any(source["name"] == "fastapi" for source in sources)
+
+env = local_dev.check_env()
+assert Path(env["project_root"]).name == "mcp-codex"
+
+with tempfile.TemporaryDirectory() as tmpdir:
+    import os
+
+    os.environ["MCP_CODEX_MEMORY_ROOT"] = tmpdir
+    result = memory.write_memory("standards/smoke.md", "# Smoke Test\n\nMemory works.")
+    assert result["ok"] is True
+    matches = memory.search_memory("Memory works")["matches"]
+    assert matches and matches[0]["path"] == "standards/smoke.md"
+
+print("Service smoke test passed.")
+PY
+
+for server in github docs local-dev memory; do
+  test -x ".venv/bin/mcp-codex-$server"
+done
+
+echo "MCP entry point scripts are present."
+

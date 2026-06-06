@@ -31,6 +31,26 @@ mcp-codex-memory
 
 Each command also accepts `--transport streamable-http` for local inspector testing.
 
+## Fedora Silverblue
+
+On Silverblue, keep development dependencies inside a toolbox:
+
+```sh
+toolbox create mcp-codex
+toolbox enter mcp-codex
+cd /var/home/fg/git/mcp-codex
+scripts/setup-silverblue-toolbox
+scripts/smoke-test
+```
+
+If your MCP client runs on the host, use `config/mcp.silverblue.example.json`. It starts each server through:
+
+```sh
+toolbox run --container mcp-codex /var/home/fg/git/mcp-codex/scripts/mcp-server docs
+```
+
+The wrapper script changes into the repository, uses `.venv`, and sets absolute config paths so the servers behave the same whether started from the toolbox shell or the host MCP client.
+
 ## Browser MCP
 
 Browser automation is delegated to Playwright's maintained MCP server. See `config/mcp.example.json` for a client configuration entry.
@@ -57,4 +77,3 @@ Markdown memory tools are constrained to the configured memory root.
 ```sh
 python -m pytest
 ```
-

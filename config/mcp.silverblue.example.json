@@ -1,0 +1,56 @@
+{
+  "mcpServers": {
+    "github": {
+      "command": "toolbox",
+      "args": [
+        "run",
+        "--container",
+        "mcp-codex",
+        "/var/home/fg/git/mcp-codex/scripts/mcp-server",
+        "github"
+      ]
+    },
+    "docs": {
+      "command": "toolbox",
+      "args": [
+        "run",
+        "--container",
+        "mcp-codex",
+        "/var/home/fg/git/mcp-codex/scripts/mcp-server",
+        "docs"
+      ]
+    },
+    "local-dev": {
+      "command": "toolbox",
+      "args": [
+        "run",
+        "--container",
+        "mcp-codex",
+        "/var/home/fg/git/mcp-codex/scripts/mcp-server",
+        "local-dev"
+      ]
+    },
+    "memory": {
+      "command": "toolbox",
+      "args": [
+        "run",
+        "--container",
+        "mcp-codex",
+        "/var/home/fg/git/mcp-codex/scripts/mcp-server",
+        "memory"
+      ]
+    },
+    "browser": {
+      "command": "toolbox",
+      "args": [
+        "run",
+        "--container",
+        "mcp-codex",
+        "npx",
+        "-y",
+        "@playwright/mcp@latest"
+      ]
+    }
+  }
+}
+

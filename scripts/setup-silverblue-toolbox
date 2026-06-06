@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+if [[ ! -f /run/.containerenv ]]; then
+  cat >&2 <<'MSG'
+This setup script is intended to run inside your Fedora Silverblue toolbox.
+
+From the host, use:
+  toolbox enter mcp-codex
+  cd /var/home/fg/git/mcp-codex
+  scripts/setup-silverblue-toolbox
+MSG
+  exit 1
+fi
+
+cd "$repo_root"
+
+if command -v dnf >/dev/null 2>&1; then
+  sudo dnf install -y python3 python3-pip python3-virtualenv git gh nodejs npm
+fi
+
+if [[ ! -x .venv/bin/python ]]; then
+  python3 -m venv --upgrade-deps .venv
+fi
+
+. .venv/bin/activate
+
+if ! python -m pip --version >/dev/null 2>&1; then
+  python -m ensurepip --upgrade
+fi
+
+python -m pip install -U pip setuptools wheel
+python -m pip install -e ".[dev,browser]"
+
+echo
+echo "Setup complete. Run: scripts/smoke-test"
+
