@@ -3,6 +3,7 @@
 Local-first MCP servers for using Codex across a solo developer workflow:
 
 - GitHub repo, PR, issue, workflow, and deployment inspection through the `gh` CLI
+- GitHub Actions workflow inspection and guarded workflow file updates
 - Current documentation lookup against configured authoritative sources
 - Local development commands through an explicit allowlist
 - Alembic migration inspection and guarded migration commands
@@ -69,6 +70,12 @@ Environment variables:
 - `MCP_CODEX_ALEMBIC_ALLOW_DB_WRITE`: set to `1` to allow Alembic database-changing commands when the tool call also passes `allow_database_write=True`
 
 GitHub tools use your existing `gh` authentication. No GitHub tokens, AWS credentials, SSH keys, or other secrets should be committed.
+
+## GitHub Support
+
+The GitHub MCP server can inspect repositories, branches, pull requests, issues, deployments, Actions workflows, workflow runs, run logs, and workflow files. It also includes helpers for drafting well-structured commit messages and pull request descriptions.
+
+Workflow editing is intentionally scoped. The `update_workflow_file` tool only writes files under `.github/workflows/*.yml` or `.github/workflows/*.yaml`, requires a target branch, and requires a non-empty commit message. Prefer editing a feature branch and opening a PR rather than writing directly to the default branch.
 
 ## Tool Safety
 

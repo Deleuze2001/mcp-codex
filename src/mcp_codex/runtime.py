@@ -73,6 +73,7 @@ def run_command(
     *,
     cwd: Path | None = None,
     timeout_seconds: int = 60,
+    stdin: str | None = None,
 ) -> CommandResult:
     started = time.monotonic()
     command_cwd = cwd or project_root()
@@ -81,6 +82,7 @@ def run_command(
             command,
             cwd=command_cwd,
             text=True,
+            input=stdin,
             capture_output=True,
             timeout=timeout_seconds,
             check=False,
