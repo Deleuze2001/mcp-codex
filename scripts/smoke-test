@@ -19,13 +19,16 @@ python - <<'PY'
 import tempfile
 from pathlib import Path
 
-from mcp_codex.services import docs, local_dev, memory
+from mcp_codex.services import alembic, docs, local_dev, memory
 
 sources = docs.list_doc_sources()["sources"]
 assert any(source["name"] == "fastapi" for source in sources)
 
 env = local_dev.check_env()
 assert Path(env["project_root"]).name == "mcp-codex"
+
+alembic_env = alembic.check_env()
+assert Path(alembic_env["workspace_root"]).name == "mcp-codex"
 
 with tempfile.TemporaryDirectory() as tmpdir:
     import os
@@ -39,9 +42,8 @@ with tempfile.TemporaryDirectory() as tmpdir:
 print("Service smoke test passed.")
 PY
 
-for server in github docs local-dev memory; do
+for server in alembic github docs local-dev memory; do
   test -x ".venv/bin/mcp-codex-$server"
 done
 
 echo "MCP entry point scripts are present."
-

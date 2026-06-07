@@ -1,7 +1,17 @@
 {
   "mcpServers": {
+    "alembic": {
+      "command": "/run/host/usr/bin/toolbox",
+      "args": [
+        "run",
+        "--container",
+        "mcp-codex",
+        "/var/home/fg/git/mcp-codex/scripts/mcp-server",
+        "alembic"
+      ]
+    },
     "github": {
-      "command": "toolbox",
+      "command": "/run/host/usr/bin/toolbox",
       "args": [
         "run",
         "--container",
@@ -11,7 +21,7 @@
       ]
     },
     "docs": {
-      "command": "toolbox",
+      "command": "/run/host/usr/bin/toolbox",
       "args": [
         "run",
         "--container",
@@ -21,7 +31,7 @@
       ]
     },
     "local-dev": {
-      "command": "toolbox",
+      "command": "/run/host/usr/bin/toolbox",
       "args": [
         "run",
         "--container",
@@ -31,7 +41,7 @@
       ]
     },
     "memory": {
-      "command": "toolbox",
+      "command": "/run/host/usr/bin/toolbox",
       "args": [
         "run",
         "--container",
@@ -41,7 +51,7 @@
       ]
     },
     "browser": {
-      "command": "toolbox",
+      "command": "/run/host/usr/bin/toolbox",
       "args": [
         "run",
         "--container",
@@ -53,4 +63,3 @@
     }
   }
 }
-

@@ -1,5 +1,8 @@
 {
   "mcpServers": {
+    "alembic": {
+      "command": "mcp-codex-alembic"
+    },
     "github": {
       "command": "mcp-codex-github"
     },
@@ -18,4 +21,3 @@
     }
   }
 }
-

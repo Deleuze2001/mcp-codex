@@ -22,6 +22,7 @@ dev = [
 ]
 
 [project.scripts]
+mcp-codex-alembic = "mcp_codex.alembic_server:main"
 mcp-codex-docs = "mcp_codex.docs_server:main"
 mcp-codex-github = "mcp_codex.github_server:main"
 mcp-codex-local-dev = "mcp_codex.local_dev_server:main"
@@ -37,4 +38,3 @@ target-version = "py311"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
-

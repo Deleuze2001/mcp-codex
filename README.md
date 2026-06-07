@@ -5,6 +5,7 @@ Local-first MCP servers for using Codex across a solo developer workflow:
 - GitHub repo, PR, issue, workflow, and deployment inspection through the `gh` CLI
 - Current documentation lookup against configured authoritative sources
 - Local development commands through an explicit allowlist
+- Alembic migration inspection and guarded migration commands
 - Markdown project memory stored in this repository
 - Browser testing via the official Playwright MCP server
 
@@ -23,6 +24,7 @@ python -m pip install -e ".[dev,browser]"
 Run a server over stdio:
 
 ```sh
+mcp-codex-alembic
 mcp-codex-github
 mcp-codex-docs
 mcp-codex-local-dev
@@ -46,7 +48,7 @@ scripts/smoke-test
 If your MCP client runs on the host, use `config/mcp.silverblue.example.json`. It starts each server through:
 
 ```sh
-toolbox run --container mcp-codex /var/home/fg/git/mcp-codex/scripts/mcp-server docs
+/run/host/usr/bin/toolbox run --container mcp-codex /var/home/fg/git/mcp-codex/scripts/mcp-server docs
 ```
 
 The wrapper script changes into the repository, uses `.venv`, and sets absolute config paths so the servers behave the same whether started from the toolbox shell or the host MCP client.
@@ -63,6 +65,8 @@ Environment variables:
 - `MCP_CODEX_LOCAL_DEV_CONFIG`: local dev allowlist path, defaults to `config/local_dev.allowlist.json`
 - `MCP_CODEX_DOC_SOURCES`: docs source config, defaults to `config/docs_sources.json`
 - `MCP_CODEX_MEMORY_ROOT`: markdown memory root, defaults to `memory`
+- `MCP_CODEX_WORKSPACE_ROOT`: target project root for local dev and Alembic tools, defaults to the server working directory
+- `MCP_CODEX_ALEMBIC_ALLOW_DB_WRITE`: set to `1` to allow Alembic database-changing commands when the tool call also passes `allow_database_write=True`
 
 GitHub tools use your existing `gh` authentication. No GitHub tokens, AWS credentials, SSH keys, or other secrets should be committed.
 
@@ -71,6 +75,8 @@ GitHub tools use your existing `gh` authentication. No GitHub tokens, AWS creden
 Local command execution is allowlisted. Tools never use a shell for command execution, and extra arguments are appended only for allowlist entries that explicitly enable them.
 
 Markdown memory tools are constrained to the configured memory root.
+
+Alembic tools default to read-only inspection or SQL preview. Commands that modify a database require both `MCP_CODEX_ALEMBIC_ALLOW_DB_WRITE=1` and an explicit `allow_database_write=True` tool argument.
 
 ## Tests
 

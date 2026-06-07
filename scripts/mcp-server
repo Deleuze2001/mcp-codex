@@ -8,9 +8,9 @@ repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 venv_python="$repo_root/.venv/bin/python"
 
 case "$server" in
-  github|docs|local-dev|memory) ;;
+  alembic|github|docs|local-dev|memory) ;;
   *)
-    echo "Usage: $0 {github|docs|local-dev|memory} [server args...]" >&2
+    echo "Usage: $0 {alembic|github|docs|local-dev|memory} [server args...]" >&2
     exit 2
     ;;
 esac
@@ -27,4 +27,3 @@ export MCP_CODEX_DOC_SOURCES="${MCP_CODEX_DOC_SOURCES:-$repo_root/config/docs_so
 export MCP_CODEX_MEMORY_ROOT="${MCP_CODEX_MEMORY_ROOT:-$repo_root/memory}"
 
 exec "$repo_root/.venv/bin/mcp-codex-$server" "$@"
-

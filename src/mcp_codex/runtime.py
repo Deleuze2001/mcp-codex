@@ -37,7 +37,7 @@ class CommandResult:
 
 
 def project_root() -> Path:
-    return Path.cwd()
+    return env_path("MCP_CODEX_WORKSPACE_ROOT", ".").resolve()
 
 
 def env_path(name: str, default: str) -> Path:
@@ -119,4 +119,3 @@ def parse_transport(argv: list[str] | None = None) -> str:
     )
     args = parser.parse_args(argv)
     return args.transport
-
